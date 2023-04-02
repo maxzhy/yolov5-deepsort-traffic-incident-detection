@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>startpage</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/startpage.css">
+</head>
+<body>
+    <a href="http://192.168.3.50:8866/inference/output">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        Recorded
+    </a>
+    <a href="javascript:window.location.href='{{ url_for('home.index') }}'">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        Start
+    </a>
+    <a href="javascript:window.location.href='{{ url_for('user.logout') }}'">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        Logout
+    </a>
+</body>
+</html>

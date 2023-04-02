@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Surveillance System</title>
+    <style>
+        body {
+            /*background-color: #484856;*/
+            background-color: #434343;
+        }
+
+        .top .recorder .btn{
+            font-size: 20px;
+            font-weight:bold;
+            color: #515151;
+            width: 90px;
+            height: 30px;
+            border: None;
+            border-radius: 1px;
+            cursor: pointer;
+        }
+
+        .corner {
+            border-radius: 1px;
+            /*border: 5px solid rgb(0,255,0);*/
+            padding: 0px;
+            max-width:80%;
+            max-height:80vh;
+            text-align: center;
+        }
+
+        .video-container {
+            padding-top: 0.5em;
+            justify-content: center;
+            text-align: center;
+            height:100%;
+            /*border: 1px solid black;*/
+        }
+
+    </style>
+</head>
+<body>
+<h1 align="center" style="color: #ffffff;">Highway Traffic Video Stream</h1>
+<div class="top">
+    <div class="recorder" id="recorder" align="center">
+        <button id="stop" class="btn">Stop</button>
+        <button id="restart" class="btn">Restart</button>
+        <button id="logout" class="btn">Logout</button>
+        <!--<input type="button" class="btn" value="退出登录"
+               onclick="javascript:window.location.href='{{ url_for('user.logout') }}'">-->
+        <!--<script type="text/javascript" src="{{ url_for('static', filename='recorder.js') }}"></script>-->
+        <script type="text/javascript">
+            var buttonStop = document.getElementById("stop");
+            var buttonRestart = document.getElementById("restart");
+            var buttonLogout = document.getElementById("logout");
+            var buttonTest = document.getElementById("test");
+
+            buttonStop.disabled = true
+            buttonRestart.disabled = true;
+            buttonLogout.disabled = true;
+
+            function sleep(millisecond) {
+		        return new Promise(resolve => {
+		            setTimeout(() => {
+		                resolve()
+		            }, millisecond)
+		        })
+		    }
+
+            async function test() {
+		        const start = new Date().getTime();
+		        await sleep(5000); // delay
+                buttonStop.disabled = false;
+		    }
+
+            test()
+
+            buttonStop.onclick = function () {
+
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "/video_status");
+                xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+                xhr.send(JSON.stringify({status: "false"}));
+
+                buttonStop.disabled = true;
+                buttonRestart.disabled = false;
+                buttonLogout.disabled = false;
+            };
+
+            buttonRestart.onclick = function () {
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "/video_status");
+                xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+                xhr.send(JSON.stringify({status: "true"}));
+                window.location.href="{{ url_for('user.startpage') }}";
+            };
+
+            buttonLogout.onclick = function () {
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "/video_status");
+                xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+                xhr.send(JSON.stringify({status: "true"}));
+                window.location.href="{{ url_for('user.logout') }}";
+            };
+        </script>
+    </div>
+</div>
+<div class="video-container">
+    <img id="video" src="{{ url_for('home.video_viewer') }}" class="corner">
+</div>
+</body>
+</html>

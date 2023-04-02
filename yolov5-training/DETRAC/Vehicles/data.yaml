@@ -1,0 +1,5 @@
+train: ../Vehicles/train/images
+val: ../Vehicles/valid/images
+
+nc: 4
+names: ['Truck', 'Car', 'Minivan', 'Bus']
