@@ -58,7 +58,7 @@ yolov5-deepsort-traffic-incident-detection
 ├── config.py
 ├── main.py
 ├── requirements.txt
-├── source.txt
+├── source.yaml
 ├── gonglu3.mp4
 └── system_demo_video.mp4
 ```
@@ -74,7 +74,7 @@ pip install -r requirements.txt
 
 ## How to run
 
-1. Open source.txt and write the link for the target video. i.e.  The video file gonglu3.mp4 is a testing MP4 video. You can also refer to [rtsp-simple-server](https://github.com/aler9/rtsp-simple-server) to create live video stream for testing.
+1. Open source.yaml and write the link for the target video. i.e.  The video file gonglu3.mp4 is a testing MP4 video. You can also refer to [rtsp-simple-server](https://github.com/aler9/rtsp-simple-server) to create live video stream for testing.
 
 2. Run the server with command: 
 

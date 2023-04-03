@@ -11,6 +11,7 @@ import torchvision
 import numpy as np
 import argparse
 import torch.backends.cudnn as cudnn
+import yaml
 
 # yolov5
 from controller.static.yolov5.utils.datasets import *
@@ -162,16 +163,18 @@ class Camera(VideoCamera):
         #out, weights, imgsz = 'inference/output', 'controller/static/yolov5/weights/best-36.pt', 640
         out, weights, imgsz = 'inference/output', 'controller/static/yolov5/weights/best.pt', 640
 
-
-        source_txt = open("source.txt","r+")
-        temp=source_txt.read().split("=")
-        source_txt=temp[1]
-        source_txt = source_txt.replace(source_txt[len(source_txt)-1],"")
-
-        #print(source_txt)
+        #source_txt = open("source.txt","r+")
+        #temp=source_txt.read().split("=")
+        #source_txt=temp[1]
+        #source_txt = source_txt.replace(source_txt[len(source_txt)-1],"")
 
         #source = '0'
-        source = source_txt
+        #source = source_txt
+
+        with open("source.yaml", 'r') as stream:
+            source_data = yaml.load(stream, Loader=yaml.FullLoader)
+        source = list(source_data.values())
+        source = source[0]
 
         '''add realtime video stream'''
         webcam = source.isnumeric() or source.endswith('.txt') or source.lower().startswith(('rtsp://', 'rtmp://', 'http://', 'https://'))
